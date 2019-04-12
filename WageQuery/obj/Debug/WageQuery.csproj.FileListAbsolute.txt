@@ -1,0 +1,12 @@
+C:\Users\admin\source\repos\WageQuery\WageQuery\bin\Debug\WageQuery.exe.config
+C:\Users\admin\source\repos\WageQuery\WageQuery\bin\Debug\WageQuery.exe
+C:\Users\admin\source\repos\WageQuery\WageQuery\bin\Debug\WageQuery.pdb
+C:\Users\admin\source\repos\WageQuery\WageQuery\bin\Debug\libzkfpcsharp.dll
+C:\Users\admin\source\repos\WageQuery\WageQuery\obj\Debug\WageQuery.csprojAssemblyReference.cache
+C:\Users\admin\source\repos\WageQuery\WageQuery\obj\Debug\WageQuery.Form1.resources
+C:\Users\admin\source\repos\WageQuery\WageQuery\obj\Debug\WageQuery.Properties.Resources.resources
+C:\Users\admin\source\repos\WageQuery\WageQuery\obj\Debug\WageQuery.csproj.GenerateResource.cache
+C:\Users\admin\source\repos\WageQuery\WageQuery\obj\Debug\WageQuery.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\WageQuery\WageQuery\obj\Debug\WageQuery.csproj.CopyComplete
+C:\Users\admin\source\repos\WageQuery\WageQuery\obj\Debug\WageQuery.exe
+C:\Users\admin\source\repos\WageQuery\WageQuery\obj\Debug\WageQuery.pdb
