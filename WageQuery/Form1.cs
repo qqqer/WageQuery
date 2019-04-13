@@ -25,7 +25,7 @@ namespace WageQuery
         {
             InitializeComponent();
 
-            this.ControlBox = false;
+            //this.ControlBox = false;
             dataGridView1.DataSource = dt;
             dataGridView1.RowsDefaultCellStyle.Font = new Font("宋体", 19, FontStyle.Regular);
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("宋体", 19, FontStyle.Regular);
@@ -40,35 +40,52 @@ namespace WageQuery
         }
 
 
-        private int getUserId()
+        private void getUserId()
         {
             int userid = 0;
+            Action act;
             while (true)
             {
                 DevClass.Capture();
 
-                label1.Text = "正在验证中...";
-                label1.Refresh();
+                act = () => {
+                    label1.Text = "正在验证中...";
+                    label1.Refresh();
+                };
+                this.Invoke(act);
+
 
                 userid = DevClass.Verify();
 
                 if (userid == 0)
                 {
-                    label1.Text = "验证失败，请重新按入指纹";
-                    label1.Refresh();
+                    act = () =>
+                    {
+                        label1.Text = "验证失败，请重新按入指纹";
+                        label1.Refresh();
+                    };
+                    this.Invoke(act);
                 }
                 else break;
             }
 
-            return userid;
+            act = () => { ShowByUserId(userid); };
+            this.Invoke(act);           
         }
 
 
-        private void Show(int userid)
+        private void ShowByUserId(int userid)
         {
-            string sql = "select top 1 * from userfile ";
-            dt = SQLRepository.ExecuteQueryToDataTable(SQLRepository.test_strConn, sql);
+            dt = SQLRepository.ExecuteQueryToDataTable(SQLRepository.test_strConn, ConfigurationManager.AppSettings["QUERYSQL"]);
+
+                   
             dataGridView1.DataSource = dt;
+
+
+            string ColumnsNanme = ConfigurationManager.AppSettings["ColumnsNanme"];
+            string[] arr = ColumnsNanme.Split(',');
+            for (int i = 0; i < arr.Length; i++)
+                dataGridView1.Columns[i].HeaderCell.Value = arr[i].Trim();
 
 
             remaining_time = int.Parse(ConfigurationManager.AppSettings["KEEP_TIME_SEC"]);
@@ -97,7 +114,7 @@ namespace WageQuery
             DateTime StartDate = DateTime.Now;
             int KEEP_TIME_SEC = int.Parse(ConfigurationManager.AppSettings["KEEP_TIME_SEC"]);
 
-            while ((DateTime.Now - StartDate).Seconds < KEEP_TIME_SEC && ClosesByBtn == false) ;
+            while ((DateTime.Now - StartDate).TotalSeconds < KEEP_TIME_SEC && ClosesByBtn == false) ;
 
             if (ClosesByBtn == false)
             {
@@ -115,12 +132,10 @@ namespace WageQuery
                 this.label1.Text = "请在指纹机上按入指纹";
                 this.Refresh();
 
-                int userid = getUserId();
 
-                if (userid > 0)
-                {
-                    Show(userid);
-                }
+                Thread Thread = new Thread(new ThreadStart(getUserId));
+                Thread.IsBackground = true;
+                Thread.Start();
             }
         }
 
@@ -134,21 +149,18 @@ namespace WageQuery
         }
 
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            int userid = getUserId();
-
-            if (userid > 0)
-            {
-                Show(userid);
-            }
-        }
-
 
         private void button1_Click(object sender, EventArgs e)
         {           
             ClosesByBtn = true;
             panel2.Visible = false;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            Thread Thread = new Thread(new ThreadStart(getUserId));
+            Thread.IsBackground = true;
+            Thread.Start();
         }
     }
 }
