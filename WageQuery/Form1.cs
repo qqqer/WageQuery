@@ -27,8 +27,8 @@ namespace WageQuery
 
             //this.ControlBox = false;
             dataGridView1.DataSource = dt;
-            dataGridView1.RowsDefaultCellStyle.Font = new Font("宋体", 19, FontStyle.Regular);
-            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("宋体", 19, FontStyle.Regular);
+            dataGridView1.RowsDefaultCellStyle.Font = new Font("宋体", 18, FontStyle.Regular);
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("宋体", 18, FontStyle.Regular);
             T.Tick += new EventHandler(T_Tick);
             DevClass.Init();
         }
@@ -70,13 +70,17 @@ namespace WageQuery
             }
 
             act = () => { ShowByUserId(userid); };
-            this.Invoke(act);           
+            this.Invoke(act); 
         }
 
 
         private void ShowByUserId(int userid)
         {
-            dt = SQLRepository.ExecuteQueryToDataTable(SQLRepository.test_strConn, ConfigurationManager.AppSettings["QUERYSQL"]);
+            string sql = "SELECT NAME  FROM[HSBS].[dbo].[USERINFO] where USERID = "+userid+"";
+            label3.Text = "你是"+ (string)SQLRepository.ExecuteScalarToObject(SQLRepository.hsbs_strConn, CommandType.Text, sql, null);
+
+            sql = "select top 1 " + ConfigurationManager.AppSettings["DBColumnsNanme"] + " from userfile";
+            dt = SQLRepository.ExecuteQueryToDataTable(SQLRepository.test_strConn, sql);
 
                    
             dataGridView1.DataSource = dt;

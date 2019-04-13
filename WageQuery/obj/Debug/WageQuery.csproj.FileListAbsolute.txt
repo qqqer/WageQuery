@@ -10,4 +10,3 @@ C:\Users\admin\source\repos\WageQuery\WageQuery\obj\Debug\WageQuery.csproj.CoreC
 C:\Users\admin\source\repos\WageQuery\WageQuery\obj\Debug\WageQuery.csproj.CopyComplete
 C:\Users\admin\source\repos\WageQuery\WageQuery\obj\Debug\WageQuery.exe
 C:\Users\admin\source\repos\WageQuery\WageQuery\obj\Debug\WageQuery.pdb
-C:\Users\admin\source\repos\WageQuery\WageQuery\obj\Debug\WageQuery.Form2.resources
